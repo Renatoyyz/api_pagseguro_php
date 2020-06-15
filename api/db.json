@@ -1,0 +1,23 @@
+{
+    "promocoes":[
+            {
+                "id":1,
+                "nome":"Cookie Double Darck",
+                "valor": 10.50,
+                "descricao":"Delicioso cookie com chocolate meio amargo...",
+                "foto": "http://www.maeda-st.com.br/images/promocao_01.png"
+            },
+            {
+                "id":2,
+                "nome":"Cookie Chocolate",
+                "valor": 12.00,
+                "descricao":"Delicioso cookie com chocolate tradicional...",
+                "foto": "http://www.maeda-st.com.br/images/promocao_02.png"
+            }
+        ],
+        
+        "genres":[
+
+        ]
+}
+
