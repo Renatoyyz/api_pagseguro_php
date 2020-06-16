@@ -7,7 +7,7 @@ use DOMDocument;
 use DOMElement;
 use Hcode\PagSeguro\Payment\Method;
 
-class Payment {//classz
+class Payment {//class
 
     private $mode = "default";
     private $currency = "BRL";
