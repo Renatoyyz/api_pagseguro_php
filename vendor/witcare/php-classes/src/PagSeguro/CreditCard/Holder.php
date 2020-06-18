@@ -6,8 +6,8 @@ use Exception;
 use DOMDocument;
 use DOMElement;
 use DateTime;
-use Hcode\PagSeguro\Document;
-use Hcode\PagSeguro\Phone;
+use Witcare\PagSeguro\Document;
+use Witcare\PagSeguro\Phone;
 
 class Holder {//class
 

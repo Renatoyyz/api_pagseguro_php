@@ -44,21 +44,23 @@ class Transporter {//class
             
             $xml = simplexml_load_string( $response->getBody()->getContents() );
 
-            $order = new Order();
+            //var_dump($xml);
 
-            $order->setPagSeguroTransactionResponse(
-                $idorder,
-                (string)$xml->code,
-                (float)$xml->grossAmount,
-                (float)$xml->discountAmount,
-                (float)$xml->feeAmount,
-                (float)$xml->netAmount,
-                (float)$xml->extraAmount,
-                (string)$xml->paymentLink
+        //     $order = new Order();
 
-            );
+        //     $order->setPagSeguroTransactionResponse(
+        //         $idorder,
+        //         (string)$xml->code,
+        //         (float)$xml->grossAmount,
+        //         (float)$xml->discountAmount,
+        //         (float)$xml->feeAmount,
+        //         (float)$xml->netAmount,
+        //         (float)$xml->extraAmount,
+        //         (string)$xml->paymentLink
 
-           //var_dump('OK!!!!!');
+        //     );
+
+        //    //var_dump('OK!!!!!');
            return $xml;
 
     }//sendTransaction

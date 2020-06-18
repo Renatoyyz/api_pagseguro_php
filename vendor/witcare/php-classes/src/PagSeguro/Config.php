@@ -5,13 +5,13 @@ namespace Witcare\PagSeguro;
 class Config {//class
 
     const SANDBOX = true;
-
+    
     const SANDBOX_EMAIL = "desenvolvimento@witcare.com.br";
     const PRODUCTION_EMAIL = "desenvolvimento@witcare.com.br";
                            
     const SANDBOX_TOKEN = "BE25B897CD2849CABB5CDC483679BC6D";
     const PRODUCTION_TOKEN = "32cb96bb-1a46-4111-bd85-f00035ff8542cc2d57c249c4832a921c0de5e713f2c052fe-b05f-45df-9edc-5af49d9b32df";
-
+    
     const SANDBOX_SESSIONS = "https://ws.sandbox.pagseguro.uol.com.br/v2/sessions";
     const PRODUCTION_SESSIONS = "https://ws.pagseguro.uol.com.br/v2/sessions";
 

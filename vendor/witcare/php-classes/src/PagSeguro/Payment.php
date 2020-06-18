@@ -5,7 +5,7 @@ namespace Witcare\PagSeguro;
 use Exception;
 use DOMDocument;
 use DOMElement;
-use Hcode\PagSeguro\Payment\Method;
+use Witcare\PagSeguro\Payment\Method;
 
 class Payment {//class
 

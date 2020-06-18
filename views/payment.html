@@ -22,10 +22,12 @@
 
         <h1>Renato oliveira</h1>
 
-        <!-- {loop="$order"}
-           <h3>{$value}</h3> 
-        {/loop} -->
-
+        
+<div id="campos" >
+    {loop="$order"}
+      <input type="hidden" name="{$key}" value="{$value}" >
+    {/loop}
+</div>
         <!-- Biblioteca jQuery -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <!-- Blibliotca pagseguro -->
@@ -35,8 +37,20 @@
         </script>
 
         <script>
+
+function showValues(){
+    var params = {};
+            var formData = $(":input").serializeArray();//serializa os inputs dessa página
+            $.each(formData, function (index, field) {
+                params[field.name] = field.value;//carrega na variável que vai ser enviado
+            });
+            
+
+
+            
+
             PagSeguroDirectPayment.getPaymentMethods({//getPaymentMethods
-                    amount: parseFloat("{$order.valor_total}"),
+                    amount: parseFloat(params.valor_total),
                     success: function (response) {
                         // Retorna os meios de pagamento disponíveis.
                         //console.log(response.paymentMethods.CREDIT_CARD.options.MASTERCARD);
@@ -52,7 +66,7 @@
                 });//getPaymentMethods
 
             PagSeguroDirectPayment.getBrand({//getBrand
-                    cardBin: ("{$order.numero_cartao}".substring(0, 6)),//manda os seis primeiro digito do cartao 
+                    cardBin: parseInt(params.numero_cartao),//manda os seis primeiro digito do cartao 
                     success: function (response) {
                         //bandeira encontrada
                         // console.log("Sucesso: ");
@@ -71,9 +85,9 @@
                 });//getBrand
 
             PagSeguroDirectPayment.getInstallments({//getInstallments
-                    amount: parseFloat("{$order.valor_total}"),
-                    maxInstallmentNoInterest: parseInt('{$order.maxInstallmentNoInterest}'),//quanto de parcelas que o lojista assume os juros, no mínimo 2
-                    brand: '{$order.brand}',
+                    amount: parseFloat(params.valor_total),
+                    maxInstallmentNoInterest: parseInt(params.maxInstallmentNoInterest),//quanto de parcelas que o lojista assume os juros, no mínimo 2
+                    brand: params.brand,
                     success: function (response) {
                         // Retorna as opções de parcelamento disponíveis
                         // console.log("Sucesso: ");
@@ -88,36 +102,36 @@
                         // Callback para todas chamadas.
                     }
                 });//getInstallments
-
-                var params = {};
+                
 
             PagSeguroDirectPayment.createCardToken({//createCardToken
-                    cardNumber: '{$order.numero_cartao}', // Número do cartão de crédito
-                    brand: '{$order.brand}', // Bandeira do cartão
-                    cvv: '{$order.cvv}', // CVV do cartão
-                    expirationMonth: '{$order.expirationMonth}', // Mês da expiração do cartão
-                    expirationYear: '{$order.expirationYear}', // Ano da expiração do cartão, é necessário os 4 dígitos.
+                    cardNumber: params.numero_cartao, // Número do cartão de crédito
+                    brand: params.brand, // Bandeira do cartão
+                    cvv: params.cvv, // CVV do cartão
+                    expirationMonth: params.expirationMonth, // Mês da expiração do cartão
+                    expirationYear: params.expirationYear, // Ano da expiração do cartão, é necessário os 4 dígitos.
                     success: function (response) {
                         // Retorna o cartão tokenizado.
-                        // console.log("Sucesso: ");
-                        // console.log("TOKEN: ", response.card.token);
-                        // console.log("HASH: " ,PagSeguroDirectPayment.getSenderHash());
 
+                        //Adiciona novos valores carregado do pagseguro
                         params.token = response.card.token;
                         params.hash = PagSeguroDirectPayment.getSenderHash();
-                        params.valor_total = '{$order.valor_total}';
-                        params.numero_cartao = '{$order.numero_cartao}';
-                        params.maxInstallmentNoInterest = parseInt('{$order.maxInstallmentNoInterest}');
-                        params.brand = '{$order.brand}';
-                        params.cvv = '{$order.cvv}';
-                        params.expirationMonth = '{$order.expirationMonth}';
-                        params.expirationYear = '{$order.expirationYear}';
+
+                        console.log('Valor hash');
+                        console.log(params.hash);
 
                         $.post(
                             "/processo",
                             $.param(params),
                             function(r){
-                                console.log(r);
+
+                            var response_loc = JSON.parse(r);
+                            if(response_loc.success === true){
+                              window.location.href = "/payment/success";
+                            }
+                            else{
+                              
+                            }
                             }
                         );
 
@@ -132,7 +146,8 @@
                         // Callback para todas chamadas.
                     }
                 });//createCardToken
-
+            };
+            $("#campos").show(showValues());
         </script>
 
   </body>

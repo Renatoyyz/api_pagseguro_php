@@ -5,8 +5,8 @@ namespace Witcare\PagSeguro;
 use Exception;
 use DOMDocument;
 use DOMElement;
-use Hcode\PagSeguro\CreditCard\Installment;
-use Hcode\PagSeguro\CreditCard\Holder;
+use Witcare\PagSeguro\CreditCard\Installment;
+use Witcare\PagSeguro\CreditCard\Holder;
 
 class CreditCard {//class
 

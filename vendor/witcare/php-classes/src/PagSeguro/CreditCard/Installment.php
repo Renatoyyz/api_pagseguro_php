@@ -5,7 +5,7 @@ namespace Witcare\PagSeguro\CreditCard;
 use Exception;
 use DOMDocument;
 use DOMElement;
-use Hcode\PagSeguro\Config;
+use Witcare\PagSeguro\Config;
 
 class Installment {//class
 
