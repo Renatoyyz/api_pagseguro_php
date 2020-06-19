@@ -2,32 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.0.1"> -->
-    <title>Checkout example · Bootstrap</title>
-
-    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/checkout/"> -->
-
-    <!-- Bootstrap core CSS -->
-    <!-- <link href="/assets/dist/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="/res/site/css/bootstrap.min.css"> -->
-
-    <!-- Custom styles for this template -->
-    <!-- <link href="/assets/form-validation.css" rel="stylesheet"> -->
+    <title>Checkout</title>
   </head>
 
   <body>
 
         <h1>Renato oliveira</h1>
-
-        
-<div id="campos" >
-    <?php $counter1=-1;  if( isset($order) && ( is_array($order) || $order instanceof Traversable ) && sizeof($order) ) foreach( $order as $key1 => $value1 ){ $counter1++; ?>
-      <input type="hidden" name="<?php echo htmlspecialchars( $key1, ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $value1, ENT_COMPAT, 'UTF-8', FALSE ); ?>" >
-    <?php } ?>
-</div>
+        <div id="campos" >
+            <?php $counter1=-1;  if( isset($order) && ( is_array($order) || $order instanceof Traversable ) && sizeof($order) ) foreach( $order as $key1 => $value1 ){ $counter1++; ?>
+            <input type="hidden" name="<?php echo htmlspecialchars( $key1, ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $value1, ENT_COMPAT, 'UTF-8', FALSE ); ?>" >
+            <?php } ?>
+        </div>
         <!-- Biblioteca jQuery -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <!-- Blibliotca pagseguro -->
@@ -38,17 +23,12 @@
 
         <script>
 
-function showValues(){
+function showValues(){//showValues
     var params = {};
             var formData = $(":input").serializeArray();//serializa os inputs dessa página
             $.each(formData, function (index, field) {
                 params[field.name] = field.value;//carrega na variável que vai ser enviado
             });
-            
-
-
-            
-
             PagSeguroDirectPayment.getPaymentMethods({//getPaymentMethods
                     amount: parseFloat(params.valor_total),
                     success: function (response) {
@@ -135,7 +115,6 @@ function showValues(){
                             }
                         );
 
-
                     },
                     error: function (response) {
                         // Callback para chamadas que falharam.
@@ -146,7 +125,9 @@ function showValues(){
                         // Callback para todas chamadas.
                     }
                 });//createCardToken
-            };
+
+            };//showValues
+
             $("#campos").show(showValues());
         </script>
 

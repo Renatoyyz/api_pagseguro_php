@@ -14,6 +14,13 @@ use \Witcare\PagSeguro\Shipping;
 use \Witcare\PagSeguro\CreditCard;
 use \Witcare\PagSeguro\Item;
 use \Witcare\PagSeguro\Payment;
+use \Witcare\Model\Order;
+
+$app->post('/payment/notification', function(){
+
+	var_dump($POST);
+
+});
 
 $app->get('/payment/success', function(){
 
@@ -21,39 +28,32 @@ $app->get('/payment/success', function(){
 
 });
 
-$app->get('/payment', function() {
+$app->get('/painel', function() {
 
-	//Aqui vem todos os valores da requisição - vem do $_POST , mas vou fazer simulações primeiro
-	$order = $_POST;
+	$order = new Order();
 
-	// var_dump($order);
-	// exit;
+	$order->setPagSeguroTransactionResponse(
+		1,
+		'123456',
+		123.12,
+		0.0,
+		0.0,
+		0.0,
+		10.0,
+		'http://link'
 
-	
-		$page = new Page([
-			"header"=> false,
-			"footer"=> false
-		]);
-		
-		$page->setTpl("payment",[
-			"pagseguro"=>[
-				"urlJS"=>Config::getUrlJS(),
-				"id"=>Transporter::createSession()
-			],
-			"order"=>$order
-		]);
+	);
+
+	echo 'Passou';
 	
 	});
 
 $app->post('/processo', function(){
 
-//Para testar vou trocar o $_POST pelo $jsonBody;
-
-//var_dump($_POST);
-
 $cpf = new Document(Document::CPF, $_POST['cpf'] );
 $phone = new Phone($_POST['ddd'],$_POST['fone']);
-$address = new Address('Rua M.M.D.C','974','n-a','PAuliceia','09690100','Sao Bernardo do Campo','SP','Brasil');//Não terá endereço, passar space ou qualquer caracter só para criar a instancia
+$address = new Address('Rua','1','#','bairro','09690100','Sao Bernardo do Campo','SP','Brasil');//Não terá endereço, passar space ou qualquer caracter só para criar a instancia
+//$address = new Address('#','#','#','#','09690100','#','#','#');//Não terá endereço, passar space ou qualquer caracter só para criar a instancia
 
 $bithDate = new DateTime($_POST['born_date']);
 $sender = new Sender($_POST['nome_comprador'], $cpf, $bithDate, $phone,$_POST['email'], $_POST['hash']);
@@ -63,12 +63,8 @@ $installment = new Installment(1, (float)$_POST['valor_total'] );
 $creditCard = new CreditCard($_POST['token'], $installment, $holder, $address );
 
 $payment = new Payment("Reference", $sender, $shipping );
-$item1 = new Item(1, "Texto1", 50.00, 1);
+$item1 = new Item(1, "Texto1", (float)$_POST['valor_total'], 1);
 $payment->addItem($item1);
-$item2 = new Item(2, "Texto2", 50.00, 1);
-$payment->addItem($item2);
-$item3 = new Item(3, "Texto3", 50.00, 1);
-$payment->addItem($item3);
 
 $payment->setCreditCard($creditCard);
 
@@ -82,36 +78,13 @@ echo json_encode([
 
 exit;
 
-
-
-//$dom = $payment->getDOMDocument();
-
-//echo $dom->saveXML();
-
-//$dom = new DOMDocument();
-//$dom = $payment->getDOMDocument();
-
-//$test = $payment->getDOMElement();
-
-//$testNode = $dom->importNode($test, true);
-
-//$dom->appendChild($testNode);
-
-//echo $dom->saveXML();
-//exit;
-
 });
 
 $app->post('/', function() {
-//$app->get('/', function() {
 
 	header('Content-type: application/json');
 	$body = file_get_contents('php://input');
 	$jsonBody = json_decode($body, true);
-
-	// echo var_dump($jsonBody);
-	// echo var_dump(Transporter::createSession());
-    // exit;
 
 
 	// // //Aqui vem todos os valores da requisição - vem do $_POST , mas vou fazer simulações primeiro

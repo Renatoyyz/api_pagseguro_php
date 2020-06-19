@@ -5,7 +5,7 @@ namespace Witcare\PagSeguro;
 class Config {//class
 
     const SANDBOX = true;
-    
+
     const SANDBOX_EMAIL = "desenvolvimento@witcare.com.br";
     const PRODUCTION_EMAIL = "desenvolvimento@witcare.com.br";
                            
@@ -18,13 +18,16 @@ class Config {//class
     const SANDBOX_URL_JS = "https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js";
     const PRODUCTION_URL_JS = "https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js";
 
-    CONST PRODUCTION_URL_TRANSACTION = "https://ws.pagseguro.uol.com.br/v2/transactions";
-    CONST SANDBOX_URL_TRANSACTION = "https://ws.sandbox.pagseguro.uol.com.br/v2/transactions";
+    const PRODUCTION_URL_TRANSACTION = "https://ws.pagseguro.uol.com.br/v2/transactions";
+    const SANDBOX_URL_TRANSACTION = "https://ws.sandbox.pagseguro.uol.com.br/v2/transactions";
+
+    const SANDBOX_URL_NOTIFICATION = "https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/notifications/";
+    const PRODUCTION_URL_NOTIFICATION = "https://ws.pagseguro.uol.com.br/v2/transactions/notifications/";
 
     const MAX_INSTALLMENT_NO_INTEREST = 6;// Máximo de parcelas que a loja assume os juros
     const MAX_INSTALLMENT = 10;//Máximo de parcelas
 
-    const NOTIFICATION_URL = "http://www.teste.maeda-st.com.br/payment/notification";
+    const NOTIFICATION_URL = "http://www.painel.witcare.com.br/payment/notification";
     
     public static function getAuthentication()
     {//getAuthentication
@@ -64,6 +67,12 @@ class Config {//class
     public static function getUrlTransaction(){//getUrlTransaction
 
         return ( Config::SANDBOX === true ) ? Config::SANDBOX_URL_TRANSACTION : Config::PRODUCTION_URL_TRANSACTION;
+
+    }//getUrlTransaction
+
+    public static function getNotificationTransactionURL(){//getUrlTransaction
+
+        return ( Config::SANDBOX === true ) ? Config::SANDBOX_URL_NOTIFICATION : Config::PRODUCTION_URL_NOTIFICATION;
 
     }//getUrlTransaction
 

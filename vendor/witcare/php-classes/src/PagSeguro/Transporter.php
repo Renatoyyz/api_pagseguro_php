@@ -3,7 +3,7 @@
 namespace Witcare\PagSeguro;
 
 use \GuzzleHttp\Client;
-use Hcode\Model\Order;
+use Witcare\Model\Order;
 
 
 class Transporter {//class
@@ -46,19 +46,19 @@ class Transporter {//class
 
             //var_dump($xml);
 
-        //     $order = new Order();
+            $order = new Order();
 
-        //     $order->setPagSeguroTransactionResponse(
-        //         $idorder,
-        //         (string)$xml->code,
-        //         (float)$xml->grossAmount,
-        //         (float)$xml->discountAmount,
-        //         (float)$xml->feeAmount,
-        //         (float)$xml->netAmount,
-        //         (float)$xml->extraAmount,
-        //         (string)$xml->paymentLink
+            $order->setPagSeguroTransactionResponse(
+                (int)$idorder,
+                (string)$xml->code,
+                (float)$xml->grossAmount,
+                (float)$xml->discountAmount,
+                (float)$xml->feeAmount,
+                (float)$xml->netAmount,
+                (float)$xml->extraAmount,
+                (string)$xml->paymentLink
 
-        //     );
+            );
 
         //    //var_dump('OK!!!!!');
            return $xml;
