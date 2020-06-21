@@ -83,7 +83,7 @@ class Transporter {//class
         $response = $client->request
                 (
                     'GET', 
-                    $url . "?" . $code . http_build_query(Config::getAuthentication()), 
+                    $url . $code . "?" . http_build_query(Config::getAuthentication()), 
                     [
                         'verify'=>false
                     ] 
@@ -91,7 +91,7 @@ class Transporter {//class
 
         $xml = simplexml_load_string( $response->getBody()->getContents() );
 
-        var_dump($xml);
+        var_dump($xml->status);
 
     }//getNotification
 

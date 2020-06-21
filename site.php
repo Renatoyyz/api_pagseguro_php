@@ -18,7 +18,14 @@ use \Witcare\Model\Order;
 
 $app->post('/payment/notification', function(){
 
-	var_dump($POST);
+	// "parameters": {
+	// 	"notificationType": "transaction",
+	// 	"notificationCode": "6313649F29122912DD244411CFBBF73C3632"
+	//   }
+	    
+
+		Transporter::getNotification($_POS['notificationCode'], $_POS['notificationType']);
+
 
 });
 
@@ -62,7 +69,7 @@ $shipping = new Shipping($address,0,0,false);//ter que ser false para não ter e
 $installment = new Installment(1, (float)$_POST['valor_total'] );
 $creditCard = new CreditCard($_POST['token'], $installment, $holder, $address );
 
-$payment = new Payment("Reference", $sender, $shipping );
+$payment = new Payment("0001", $sender, $shipping );
 $item1 = new Item(1, "Texto1", (float)$_POST['valor_total'], 1);
 $payment->addItem($item1);
 
