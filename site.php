@@ -15,6 +15,7 @@ use \Witcare\PagSeguro\CreditCard;
 use \Witcare\PagSeguro\Item;
 use \Witcare\PagSeguro\Payment;
 use \Witcare\Model\Order;
+use \Witcare\DB\Sql;
 
 $app->post('/payment/notification', function(){
 
@@ -86,6 +87,84 @@ echo json_encode([
 exit;
 
 });
+
+$app->get('/api_witcare', function(){//Pega todos
+
+	header('Content-type: application/json');//Especifica a saída como formato json
+
+	$method = $_SERVER['REQUEST_METHOD'];//verica qual o metodo que veio ( se POST ou GET )
+	$sql = new Sql();
+
+	$retorno = $sql->select('SELECT * FROM tb_user;');
+
+	$json = json_encode($retorno);
+
+	if($method === 'GET'){//GET
+		// if( $json[$path[0]] ){
+		// 	if( $param1 == "" ){
+		// 		echo json_encode( $json[$path[0]] );
+		// 	  }else{
+		// 		$encontrado = findById($json[$path[0]], $param1);
+		// 		  if( $encontrado >= 0 ){
+		// 			echo json_encode( $json[$path[0]][$encontrado] ); 
+		// 		  }else{
+		// 			  echo 'Error.';
+		// 		  }
+		// 	  }
+		// }else{
+		// 	echo '[]';
+		// }
+
+		echo $json;
+		exit;
+
+	}//GET
+
+});//Pega todos
+
+$app->get('/api_witcare/:id', function($id){//Pega pelo id
+
+	header('Content-type: application/json');//Especifica a saída como formato json
+
+	$method = $_SERVER['REQUEST_METHOD'];//verica qual o metodo que veio ( se POST ou GET )
+	$sql = new Sql();
+	$retorno = $sql->select("SELECT * FROM tb_user WHERE iduser = :iduser;" , [
+		":iduser"=>$id
+	]);
+
+	if( $retorno ){//if
+		$json = json_encode($retorno);
+
+		if($method === 'GET'){//GET
+			// if( $json[$path[0]] ){
+			// 	if( $param1 == "" ){
+			// 		echo json_encode( $json[$path[0]] );
+			// 	  }else{
+			// 		$encontrado = findById($json[$path[0]], $param1);
+			// 		  if( $encontrado >= 0 ){
+			// 			echo json_encode( $json[$path[0]][$encontrado] ); 
+			// 		  }else{
+			// 			  echo 'Error.';
+			// 		  }
+			// 	  }
+			// }else{
+			// 	echo '[]';
+			// }
+			print_r($json);
+			exit;
+
+		}//GET
+	}//if
+	else{
+
+		// $retorno = [
+		// 	msg=>"Usuario nào existe."
+		// ];
+		echo 'Usuário não existe.';
+		
+	}
+
+});//Pega pelo id
 
 $app->post('/', function() {
 

@@ -4,20 +4,20 @@ namespace Witcare\DB;
 
 class Sql {
 
-	// const HOSTNAME = "localhost:8889";
-	// const USERNAME = "root";
-	// const PASSWORD = "root";
-	// const DBNAME = "apiwitcare";
+	const HOSTNAME = "localhost:8889";
+	const USERNAME = "root";
+	const PASSWORD = "root";
+	const DBNAME = "witcare";
 	
 	// const HOSTNAME = "mysql.maeda-st.com.br";
 	// const USERNAME = "maedast01";
 	// const PASSWORD = "renato123";
 	// const DBNAME = "maedast01";
 
-	const HOSTNAME = "mysql.witcare.com.br";
-	const USERNAME = "witcare";
-	const PASSWORD = "renato123";
-	const DBNAME = "witcare";
+	// const HOSTNAME = "mysql.witcare.com.br";
+	// const USERNAME = "witcare";
+	// const PASSWORD = "renato123";
+	// const DBNAME = "witcare";
 
 	private $conn;
 

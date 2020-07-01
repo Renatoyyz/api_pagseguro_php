@@ -1,8 +1,10 @@
 <?php
+//require_once('../vendor/witcare/php-classes/src/DB/Sql.php');
 
 //formato da api:
 //http://www.painel.witcare.com.br/api/index.php/?path=promocoes , onde promocoes é o nome do objeto em db.json e $path é a variavel criada 
   //para atribuir os valores
+ 
 
 if( !array_key_exists('path', $_GET) ){
     echo 'Error. Path missing.';
